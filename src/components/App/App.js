@@ -18,33 +18,10 @@ function App() {
     <div className="app">
       <div className="app__page">
         <Routes>
-          <Route exact path="/" element={
-            <>
-              <Header/>
-              <Main/>
-              <Footer/>
-            </>
-          }/>
-          <Route path="/movies" element={
-            <>
-              <Header/>
-              <Movies/>
-              <Footer/>
-            </>
-          }/>
-          <Route path="/saved-movies" element={
-            <>
-              <Header/>
-              <SavedMovies/>
-              <Footer/>
-            </>
-          }/>
-          <Route path="/profile" element={
-            <>
-              <Header/>
-              <Profile/>
-            </>
-          }/>
+          <Route exact path="/" element={[<Header/>, <Main/>, <Footer/>]}/>
+          <Route path="/movies" element={[<Header/>, <Movies/>, <Footer/>]}/>
+          <Route path="/saved-movies" element={[<Header/>, <SavedMovies/>, <Footer/>]}/>
+          <Route path="/profile" element={[<Header/>, <Profile/>]}/>
           <Route path="/signin" element={<Login/>}/>
           <Route path="/signup" element={<Register/>}/>
           <Route path="*" element={<PageNotFound/>}/>
