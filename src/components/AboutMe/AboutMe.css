@@ -1,0 +1,143 @@
+.about-me {
+  max-width: 1280px;
+}
+
+.about-me__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.about-me__foto {
+  border-radius: 10px;
+  width: 292px;
+  height: 352px;
+  margin: 0 14px 40px;
+  align-self: center;
+}
+
+.about-me__name {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 36px;
+  letter-spacing: -0.04em;
+  margin: 0 14px 20px;
+}
+
+.about-me__job {
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 16px;
+  margin: 0 14px 20px;
+}
+
+.about-me__description {
+  margin: 0 14px 40px;
+  mix-blend-mode: normal;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.about-me__link {
+  margin: 0 14px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-decoration: none;
+  color: black;
+}
+
+.about-me__text-content {
+  margin: 0 0 70px;
+}
+
+@media screen and (min-width: 768px) {
+  .about-me__container {
+    flex-direction: row-reverse;
+    gap: 49px;
+  }
+
+  .about-me__foto {
+    width: 255px;
+    height: 307px;
+    margin: 0 50px 91px 0;
+    align-self: start;
+  }
+
+  .about-me__name {
+    font-size: 40px;
+    line-height: 40px;
+    margin: 0 0 16px 50px;
+  }
+
+  .about-me__job {
+    font-size: 12px;
+    line-height: 18px;
+    margin: 0 0 20px 50px;
+  }
+
+  .about-me__description {
+    margin: 0 0 87px 50px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .about-me__link {
+    display: flex;
+    height: 100%;
+    align-items: end;
+    margin: 0 0 0 50px;
+  }
+
+  .about-me__text-content {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 91px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .about-me__foto {
+    width: 270px;
+    height: 327px;
+    margin: 0 70px 100px 0;
+    align-self: start;
+  }
+
+  .about-me__name {
+    font-size: 50px;
+    line-height: 58px;
+    margin: 0 0 18px 70px;
+  }
+
+  .about-me__job {
+    font-size: 12px;
+    line-height: 18px;
+    margin: 0 0 26px 70px;
+  }
+
+  .about-me__description {
+    margin: 0 0 99px 70px;
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .about-me__link {
+    display: flex;
+    height: 100%;
+    margin: 0 0 0 70px;
+  }
+
+  .about-me__container {
+    gap: 270px;
+  }
+
+  .about-me__text-content {
+    margin-bottom: 100px;
+  }
+}
