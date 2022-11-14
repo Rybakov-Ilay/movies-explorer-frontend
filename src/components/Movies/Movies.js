@@ -3,11 +3,11 @@ import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function Movies() {
+function Movies({ handleSubmitSearchMovies }) {
   return (
     <section className="movies">
-      <SearchForm />
-      <MoviesCardList />
+      <SearchForm handleSubmitSearchMovies={handleSubmitSearchMovies}/>
+      <MoviesCardList/>
     </section>
   );
 }
