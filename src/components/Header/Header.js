@@ -10,7 +10,9 @@ function Header() {
   return (
     <header className={`header ${currentPath === "/" ? "header__theme_landing" : ""}`}>
       <div className="header__content">
-        <img className="header__logo" src={logo} alt="Логотип"/>
+        <Link className="header__logo" to="/">
+          <img  className="header__img" src={logo} alt="Логотип"/>
+        </Link>
         {
           currentPath === "/" ?
             (

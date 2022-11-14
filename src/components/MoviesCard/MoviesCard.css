@@ -46,6 +46,11 @@
   grid-column: 2/3;
   align-self: center;
   cursor: pointer;
+  transition: ease opacity .3s;
+}
+
+.movei__button:hover {
+  opacity: .6;
 }
 
 .movei__button-type_save {
@@ -53,7 +58,7 @@
 }
 
 .movei__button-type_saved {
-  background: transparent no-repeat url("../../images/save-true-icon.png") center;
+  background: transparent no-repeat url("../../images/save-true-icon.svg") center;
 }
 
 .movei__button-type_delete {
