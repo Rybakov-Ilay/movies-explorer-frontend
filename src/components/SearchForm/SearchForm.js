@@ -2,11 +2,12 @@ import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import './SearchForm.css';
 
 function SearchForm(props) {
+
   function handleSubmit(evt) {
     evt.preventDefault();
     const movieValue = evt.target.querySelector('.search-form__input').value;
     const filterDurationValue = evt.target.querySelector('.filter-checkbox__input').value;
-    props.handleSubmitSearchMovies({ movie: movieValue, filterDuration: filterDurationValue});
+    props.handleSubmitSearchMovies({ movie: movieValue, filterDuration: filterDurationValue });
   }
 
   return (

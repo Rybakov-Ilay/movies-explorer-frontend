@@ -2,7 +2,7 @@ import './App.css';
 import Main from "../Main/Main";
 import Footer from '../Footer/Footer'
 import Header from "../Header/Header";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
@@ -11,6 +11,7 @@ import Login from "../Login/Login"
 import Register from "../Register/Register";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import MoviesApi from "../../utils/MoviesApi";
+import Preloader from "../Preloader/Preloader";
 
 
 function App() {
@@ -18,15 +19,22 @@ function App() {
 
   }
 
+  const [renderLoading, setRenderLoading] = useState(false);
+
 
   function handleSubmitSearchMovies(searchParameter) {
     console.log(searchParameter)
-      MoviesApi
-        .getMovies()
-        .then(data=>{console.log(data)})
-        .catch(err => console.log(err))
+    setRenderLoading(true);
+    MoviesApi
+      .getMovies()
+      .then(data => {
+        console.log(data)
+      })
+      .catch(err => console.log(err))
+      .finally(() => {
+        setRenderLoading(false)
+      })
   }
-
 
 
   return (
@@ -37,12 +45,13 @@ function App() {
           <Route
             path="/movies"
             element={
-            [
-              <Header/>,
-              <Movies handleSubmitSearchMovies={handleSubmitSearchMovies}/>,
-              <Footer/>
-            ]
-          }/>
+              [
+                <Header/>,
+                <Preloader renderLoading={renderLoading}/>,
+                <Movies handleSubmitSearchMovies={handleSubmitSearchMovies}/>,
+                <Footer/>
+              ]
+            }/>
           <Route path="/saved-movies" element={[<Header/>, <SavedMovies/>, <Footer/>]}/>
           <Route path="/profile" element={[<Header/>, <Profile/>]}/>
           <Route path="/signin" element={<Login/>}/>
