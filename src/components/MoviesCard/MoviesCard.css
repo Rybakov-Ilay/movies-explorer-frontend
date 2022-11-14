@@ -53,7 +53,7 @@
 }
 
 .movei__button-type_saved {
-  background: transparent no-repeat url("../../images/save-true-icon.png") center;
+  background: transparent no-repeat url("../../images/save-true-icon.svg") center;
 }
 
 .movei__button-type_delete {
