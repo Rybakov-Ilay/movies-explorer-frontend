@@ -48,6 +48,11 @@
   line-height: 28px;
   letter-spacing: -0.04em;
   color: black;
+  transition: ease opacity .3s;
+}
+
+.portfolio__link:hover {
+  opacity: .6;
 }
 
 

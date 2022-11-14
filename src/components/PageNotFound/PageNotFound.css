@@ -28,6 +28,12 @@
   text-align: center;
   color: #2BE080;
   text-decoration: none;
+  cursor: pointer;
+  transition: ease opacity .3s;
+}
+
+.page-not-found__link:hover {
+  opacity: .6;
 }
 
 @media screen and (min-width: 768px){

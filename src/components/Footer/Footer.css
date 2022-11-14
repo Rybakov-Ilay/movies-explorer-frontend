@@ -49,6 +49,11 @@
   font-size: 12px;
   line-height: 15px;
   color: black;
+  transition: ease opacity .3s;
+}
+
+.footer__link:hover {
+  opacity: .6;
 }
 
 .footer__copyright {

@@ -28,6 +28,11 @@
   align-self: end;
   margin: 13px 13px 100px 0;
   cursor: pointer;
+  transition: ease opacity .3s;
+}
+
+.burger-menu__close:hover{
+  opacity: .6;
 }
 
 .burger-menu__wrap {
@@ -59,8 +64,12 @@
   font-size: 18px;
   line-height: 22px;
   text-align: center;
+  transition: ease opacity .3s;
 }
 
+.burger-menu__link:hover {
+  opacity: .6;
+}
 
 .burger-menu__link_active {
   padding-bottom: 7px;
@@ -85,4 +94,10 @@
   border: none;
   width: 100px;
   height: 32px;
+  transition: ease opacity .3s;
+  cursor: pointer;
+}
+
+.burger-menu__link-button:hover {
+  opacity: .6;
 }

@@ -50,6 +50,11 @@
   line-height: 17px;
   text-decoration: none;
   color: black;
+  transition: opacity ease .3s;
+}
+
+.about-me__link:hover {
+  opacity: .6;
 }
 
 .about-me__text-content {

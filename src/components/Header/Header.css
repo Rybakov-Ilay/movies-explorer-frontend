@@ -10,7 +10,11 @@
   height: 38px;
   align-self: center;
   cursor: pointer;
+  transition: ease opacity .3s;
+}
 
+.header__logo:hover {
+  opacity: .6;
 }
 
 .header__img {
@@ -39,6 +43,11 @@
   align-items: center;
   justify-items: center;
   text-decoration: none;
+  transition: ease opacity .3s;
+}
+
+.header__link-button:hover {
+  opacity: .6;
 }
 
 .header__button {
@@ -62,6 +71,11 @@
   line-height: 16px;
   color: white;
   text-decoration: none;
+  transition: ease opacity .3s;
+}
+
+.header__link:hover {
+  opacity: .6;
 }
 
 @media screen and (min-width: 768px) {

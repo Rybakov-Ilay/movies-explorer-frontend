@@ -68,6 +68,11 @@
   line-height: 15px;
   color: black;
   cursor: pointer;
+  transition: ease opacity .3s;
+}
+
+.profile__submit:hover {
+  opacity: .6;
 }
 
 .profile__sing-out {
@@ -79,4 +84,9 @@
   line-height: 15px;
   text-decoration: none;
   text-align: center;
+  transition: ease opacity .3s;
+}
+
+.profile__sing-out:hover {
+  opacity: .6;
 }
