@@ -1,0 +1,13 @@
+.app {
+  font-family: Inter, Arial, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+.app__page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: white;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,32 @@
+.movies__show-more-button {
+  border: none;
+  box-sizing: border-box;
+  min-height: 36px;
+  width: calc( 100% - 10px * 2 );
+  background-color: rgba(249, 249, 249, 1);
+  border-radius: 6px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  color: black;
+  margin: 80px 0 80px;
+  cursor: pointer;
+  transition: ease opacity .3s;
+}
+
+.movies__show-more-button:hover{
+  opacity: .6;
+}
+
+@media screen and (min-width: 768px) {
+  .movies__show-more-button {
+    width: calc( 100% - 30px * 2 );
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .movies__show-more-button {
+    width: calc( 100% - 70px * 2 );
+  }
+}
