@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Navigation from "../Navigation/Navigation";
 import usePathName from "../../utils/usePathName";
 
-function Header() {
+function Header({loggedIn}) {
   const currentPath = usePathName()
   console.log(currentPath);
   return (
@@ -14,7 +14,7 @@ function Header() {
           <img  className="header__img" src={logo} alt="Логотип"/>
         </Link>
         {
-          currentPath === "/" ?
+          !loggedIn ?
             (
               <div className="header__auth"><Link to="/signup" className="header__link">Регистрация</Link>
                 <Link to="/signin" className="header__link-button">

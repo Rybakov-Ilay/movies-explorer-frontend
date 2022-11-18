@@ -10,7 +10,7 @@ export default function Auth(props) {
         <img src={logo} alt="Логотип"/>
       </Link>
       <h2 className="auth__title">{props.title}</h2>
-      <form className="auth__form">
+      <form className="auth__form" onSubmit={props.handleSubmit}>
         {props.children}
         <button type="submit" className="auth__button">{props.buttonText}</button>
       </form>

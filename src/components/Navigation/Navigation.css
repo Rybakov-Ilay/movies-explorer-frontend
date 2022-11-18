@@ -23,6 +23,8 @@
 
 }
 
+
+
 .nav__desktop-links {
   list-style-type: none;
   padding: 0;
@@ -40,6 +42,10 @@
   color: black;
   cursor: pointer;
   transition: opacity ease .3s;
+}
+
+.nav__link_logged-in {
+  color: white;
 }
 
 .nav__link:hover {
@@ -61,6 +67,10 @@
   border-radius: 20px;
   cursor: pointer;
   transition: opacity ease .3s;
+}
+
+.nav__link-button_logged-in {
+  background: rgba(43, 224, 128, 1);
 }
 
 .nav__link-button:hover {

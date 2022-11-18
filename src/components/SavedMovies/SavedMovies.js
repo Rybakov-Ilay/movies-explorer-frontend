@@ -3,10 +3,10 @@ import './SavedMovies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function SavedMovies() {
+function SavedMovies({handleSubmitSearchMovies}) {
   return (
     <section className="saved-movies">
-      <SearchForm/>
+      <SearchForm handleSubmitSearchMovies={handleSubmitSearchMovies}/>
       <MoviesCardList/>
     </section>
   );
