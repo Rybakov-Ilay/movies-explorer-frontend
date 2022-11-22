@@ -21,50 +21,61 @@ class MainApi {
 
   register(name, email, password) {
     return fetch(`${this.baseUrl}/signup`, {
+      credentials: 'include',
       method: 'POST',
-      headers: this.headers,
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({ name, email, password })
     })
       .then(res => this._getResponseData(res))
   }
 
-  // авторизация пользователя
   login(email, password) {
     return fetch(`${this.baseUrl}/signin`, {
+      credentials: 'include',
       method: 'POST',
-      headers: this.headers,
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({ password, email })
     })
       .then(res => this._getResponseData(res))
   }
 
-  // запрос на роут аутентификации
   checkToken(token) {
     return fetch(`${this.baseUrl}/users/me`, {
       credentials: 'include',
       method: 'GET',
-      headers: this.headers,
+      headers: {
+        'Content-Type': "application/json",
+        'Authorization': `Bearer ${token}`,
+      }
     })
       .then(res => this._getResponseData(res))
   }
 
-  // метод получения информации о пользователе
-  getUser() {
+  getUser(token) {
     return fetch(`${this.baseUrl}/users/me`, {
         credentials: 'include',
         method: 'GET',
-        headers: this.headers,
+        headers: {
+          'Content-Type': "application/json",
+          'Authorization': `Bearer ${token}`,
+        }
       }
     )
       .then(res => this._getResponseData(res))
   }
 
-  // метод для редактирования информации о пользователе
-  editUser(name, email) {
+  editUser(name, email, token) {
     return fetch(`${this.baseUrl}/users/me`, {
       credentials: 'include',
       method: 'PATCH',
-      headers: this.headers,
+      headers: {
+        'Content-Type': "application/json",
+        'Authorization': `Bearer ${token}`,
+      },
       body: JSON.stringify({
         name: name,
         email: email
@@ -73,12 +84,14 @@ class MainApi {
       .then(res => this._getResponseData(res))
   }
 
-  // метод сохранения карточки на сервере
-  saveMovie(data) {
+  saveMovie(data, token) {
     return fetch(`${this.baseUrl}/movies`, {
       credentials: "include",
       method: 'POST',
-      headers: this.headers,
+      headers: {
+        'Content-Type': "application/json",
+        'Authorization': `Bearer ${token}`,
+      },
       body: JSON.stringify({
         country: data.country,
         director: data.director,
@@ -99,25 +112,28 @@ class MainApi {
       .then(res => this._getResponseData(res))
   }
 
-  // метод получения массива сохраненных фильмов
-  getSavedMovies() {
+  getSavedMovies(token) {
     return fetch(`${this.baseUrl}/movies`, {
-      headers: this.headers,
+      headers: {
+        'Content-Type': "application/json",
+        'Authorization': `Bearer ${token}`,
+      },
     })
       .then(res => this._getResponseData(res))
   }
 
-  // метод удаления фильма из сохраненных
-  deleteMovie(idMovie) {
+  deleteMovie(idMovie, token) {
     return fetch(`${this.baseUrl}/movies/${idMovie}`, {
       credentials: "include",
       method: 'DELETE',
-      headers: this.headers,
+      headers: {
+        'Content-Type': "application/json",
+        'Authorization': `Bearer ${token}`,
+      },
     })
       .then(res => this._getResponseData(res))
   }
 }
 
-// создание экземпляра класса MainApi
 const mainApi = new MainApi(mainOptions);
 export default mainApi

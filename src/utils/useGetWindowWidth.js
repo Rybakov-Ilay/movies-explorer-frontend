@@ -7,8 +7,11 @@ export default function useGetWindowWidth() {
   };
 
   React.useEffect(() => {
-    window.addEventListener("resize", updateWidth);
-    return () => window.removeEventListener("resize", updateWidth);
+    setTimeout(() => {
+      window.addEventListener("resize", updateWidth);
+      return () => window.removeEventListener("resize", updateWidth);
+    }, 1000)
+
   });
 
   return width;

@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex-grow: 1;
 }
 
 .movies__list {
@@ -14,7 +15,7 @@
   gap: 16px;
   list-style-type:  none;
   padding: 0;
-  margin: 50px 10px 0;
+  margin: 50px 10px 80px;
 }
 
 
@@ -23,7 +24,7 @@
   .movies__list {
     grid-template-columns: repeat(auto-fill, 339px);
     gap: 36px 30px;
-    margin: 80px 10px 0;
+    margin: 80px 10px 80px;
   }
 }
 

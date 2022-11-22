@@ -6,7 +6,6 @@ import usePathName from "../../utils/usePathName";
 
 function Header({loggedIn}) {
   const currentPath = usePathName()
-  console.log(currentPath);
   return (
     <header className={`header ${currentPath === "/" ? "header__theme_landing" : ""}`}>
       <div className="header__content">

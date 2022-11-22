@@ -1,14 +1,22 @@
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import './SearchForm.css';
+import usePathName from "../../utils/usePathName";
 
-function SearchForm(props) {
+function SearchForm({ handleSubmitSearchMovies, handleSubmitSearchFoundMovies }) {
+  const currentPath = usePathName()
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    const movieValue = evt.target.querySelector('.search-form__input').value;
+    const movieValue = evt.target.querySelector('.search-form__input').value || "";
     const filterDurationValue = evt.target.querySelector('.filter-checkbox__input').value;
-    props.handleSubmitSearchMovies({ movie: movieValue, filterDuration: filterDurationValue });
+    if (currentPath === '/movies') {
+      handleSubmitSearchMovies({ movie: movieValue, filterDuration: filterDurationValue })
+    } else {
+      handleSubmitSearchFoundMovies({ movie: movieValue, filterDuration: filterDurationValue })
+    }
+
   }
+
 
   return (
     <form className="search-form" onSubmit={handleSubmit}>
