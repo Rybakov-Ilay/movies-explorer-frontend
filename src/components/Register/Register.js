@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./Register.css"
 import Auth from "../Auth/Auth";
 import InputForm from "../InputForm/InputForm";
+import Error from "../Error/Error";
+import { useFormWithValidation } from "../../utils/useFormValidation";
 
 export default function Register({isSingUp, onSingUp}) {
-  const [values, setValues] = useState({ email: "", password: "", name: "" });
+  const { values, handleChange, errors, isValid, setValues, resetForm } = useFormWithValidation()
 
   function handleSubmitRegister(e) {
     e.preventDefault();
@@ -14,11 +16,6 @@ export default function Register({isSingUp, onSingUp}) {
       password: values.password,
     });
   }
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setValues({ ...values, [name]: value });
-  };
 
   useEffect(() => {
     setValues({ email: "", password: "", name: "" });
@@ -32,6 +29,8 @@ export default function Register({isSingUp, onSingUp}) {
       linkText="Войти"
       pathLink="/signin"
       handleSubmit={handleSubmitRegister}
+      onResetForm={resetForm}
+      isValid={isValid}
     >
       <InputForm
         labelName="Имя"
@@ -41,6 +40,7 @@ export default function Register({isSingUp, onSingUp}) {
         value={values.name || ""}
         handleChange={handleChange}
       />
+      <Error error={errors.name} isValid={isValid}/>
       <InputForm
         labelName="E-mail"
         name="email"
@@ -49,6 +49,7 @@ export default function Register({isSingUp, onSingUp}) {
         value={values.email || ""}
         handleChange={handleChange}
       />
+      <Error error={errors.email} isValid={isValid}/>
       <InputForm
         labelName="Пароль"
         name="password"
@@ -57,6 +58,7 @@ export default function Register({isSingUp, onSingUp}) {
         value={values.password || ""}
         handleChange={handleChange}
       />
+      <Error error={errors.password} isValid={isValid}/>
     </Auth>
   );
 }

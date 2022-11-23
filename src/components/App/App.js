@@ -3,7 +3,7 @@ import Main from "../Main/Main";
 import Footer from '../Footer/Footer'
 import Header from "../Header/Header";
 import React, { useEffect, useState } from "react";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
@@ -17,9 +17,9 @@ import mainApi from "../../utils/MainApi";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import useGetWindowWidth from "../../utils/useGetWindowWidth";
 import MainApi from "../../utils/MainApi";
-import Error from "../Error/Error";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import ProtectedRouteAuthorized from "../ProtectedRouteAuthorized/ProtectedRouteAuthorized";
+import Error from "../Error/Error";
 
 
 function App() {
@@ -33,7 +33,8 @@ function App() {
   const [visible, setVisible] = useState(0)
   const windowWidth = useGetWindowWidth();
   const [foundSavedMovies, setFoundSavedMovies] = useState([]);
-  const [erorr, setErorr] = useState('');
+  const [firstSearch, setFirstSearch] = useState(false)
+  const [firstSearchFound, setFirstSearchFound] = useState(false)
 
 
   function getAmountOfFilms() {
@@ -57,13 +58,13 @@ function App() {
     setVisible(prevValue => prevValue + increaseBy)
   }
 
-
   useEffect(() => {
     if (localStorage.getItem("token")) {
       const token = localStorage.getItem("token");
       mainApi
         .checkToken(token)
         .then((res) => {
+          setCurrentUser(res)
           setLoggedIn(true);
         })
         .catch(err => {
@@ -72,7 +73,6 @@ function App() {
     }
   }, [])
 
-
   function handleSubmitSearchMovies(searchParameter) {
     setSearchMovies([]);
     setRenderLoading(true);
@@ -80,13 +80,14 @@ function App() {
       .getMovies()
       .then(data => {
         setSearchMovies(getFilteredMovies(searchParameter, data));
-        localStorage.setItem('movies', JSON.stringify(setSearchMovies))
+        localStorage.setItem('movies', JSON.stringify(searchMovies))
         localStorage.setItem('movieSearch', searchParameter.movie)
         localStorage.setItem('filterCheckbox', searchParameter.filterDuration)
       })
       .catch(err => console.log(err))
       .finally(() => {
         setRenderLoading(false)
+        setFirstSearch(true);
       })
   }
 
@@ -97,10 +98,12 @@ function App() {
       .getSavedMovies(token)
       .then(data => {
         setFoundSavedMovies(getFilteredMovies(searchParameter, data))
+        localStorage.setItem('moviesFound', JSON.stringify(foundSavedMovies))
       })
       .catch(err => console.log(err))
       .finally(() => {
         setRenderLoading(false)
+        setFirstSearchFound(true)
       })
   }
 
@@ -177,9 +180,9 @@ function App() {
         if (res) {
           localStorage.setItem("token", res.token);
           localStorage.setItem('loggedIn', 'true')
-          Promise.all([mainApi.getUser(res.token)])
-            .then(([dataUser]) => {
-              setCurrentUser({ ...dataUser });
+          mainApi.getUser(res.token)
+            .then((dataUser) => {
+              setCurrentUser({ email: dataUser.email, name: dataUser.name });
             })
             .catch((error) => {
               console.log(error);
@@ -213,6 +216,7 @@ function App() {
     setSearchMovies([]);
     setFoundSavedMovies([]);
     setLoggedIn(false);
+    setFirstSearch(false);
     localStorage.removeItem('token');
     localStorage.removeItem('loggedIn');
     localStorage.removeItem('movies');
@@ -243,6 +247,10 @@ function App() {
                     showMore={showMore}
                     handleCardSaved={handleCardSaved}
                     handleCardDelete={handleCardDelete}
+                    firstSearch={firstSearch}
+                    renderLoading={renderLoading}
+                    foundSavedMovies={foundSavedMovies}
+
                   />
                   <Footer/>
                 </ProtectedRoute>
@@ -261,6 +269,8 @@ function App() {
                     showMore={showMore}
                     foundSavedMovies={foundSavedMovies}
                     handleCardDelete={handleCardDelete}
+                    firstSearchFound={firstSearchFound}
+                    renderLoading={renderLoading}
                   />
                   <Footer/>
                 </ProtectedRoute>

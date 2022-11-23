@@ -52,6 +52,14 @@
   opacity: .6;
 }
 
+.auth__button:disabled {
+  cursor: default;
+  opacity: 1;
+  background-color: rgba(232, 232, 232, 1);
+}
+
+
+
 .auth__link-wrap {
   display: flex;
   align-items: baseline;

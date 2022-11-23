@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import './Profile.css'
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useFormWithValidation } from "../../utils/useFormValidation";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
+import Error from "../Error/Error";
 
 
+export default function Profile({ handelChangeProfile, handleSignOut }) {
+  const currentUser = useContext(CurrentUserContext);
+  const { values, handleChange, errors, isValid, setValues } = useFormWithValidation()
 
-
-export default function Profile({handelChangeProfile, loggedIn, handleSignOut}) {
-  const [values, setValues] = useState({ email: "", name: "" });
+  useEffect(() => {
+    setValues({ name: currentUser.name, email: currentUser.email });
+  }, [currentUser]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -17,20 +22,10 @@ export default function Profile({handelChangeProfile, loggedIn, handleSignOut}) 
     });
   }
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setValues({ ...values, [name]: value });
-  };
-
-  useEffect(() => {
-    setValues({ email: "", name: "" });
-  }, [loggedIn]);
-
-
   return (
     <section className="profile">
-      <h3 className="profile__title">Привет, Илья!</h3>
-      <form onSubmit={handleSubmit} className="profile__form" name="profileForm">
+      <h3 className="profile__title">{`Привет, ${currentUser.name}!`}</h3>
+      <form onSubmit={handleSubmit} className="profile__form" name="profileForm" noValidate>
         <fieldset className="profile__fieldset">
           <label>Имя</label>
           <input
@@ -45,6 +40,7 @@ export default function Profile({handelChangeProfile, loggedIn, handleSignOut}) 
             onChange={handleChange}
           />
         </fieldset>
+        <Error isValid={isValid} error={errors.name}/>
         <fieldset className="profile__fieldset">
           <label>Почта</label>
           <input
@@ -60,9 +56,11 @@ export default function Profile({handelChangeProfile, loggedIn, handleSignOut}) 
             onChange={handleChange}
           />
         </fieldset>
+        <Error isValid={isValid} error={errors.email}/>
         <button
           className="profile__submit"
           type="submit"
+          disabled={!isValid}
         >
           Редактировать
         </button>

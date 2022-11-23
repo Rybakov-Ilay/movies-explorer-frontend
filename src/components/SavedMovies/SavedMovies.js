@@ -3,15 +3,18 @@ import './SavedMovies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function SavedMovies({
-                       handleSubmitSearchFoundMovies,
-                       handleSubmitSearchMovies,
-                       visible,
-                       searchMovies,
-                       showMore,
-                       foundSavedMovies,
-                       handleCardDelete
-                     }) {
+function SavedMovies(
+  {
+    handleSubmitSearchFoundMovies,
+    handleSubmitSearchMovies,
+    visible,
+    searchMovies,
+    showMore,
+    foundSavedMovies,
+    handleCardDelete,
+    firstSearchFound,
+    renderLoading
+  }) {
   return (
     <section className="saved-movies">
       <SearchForm handleSubmitSearchMovies={handleSubmitSearchMovies}
@@ -22,6 +25,8 @@ function SavedMovies({
         searchMovies={searchMovies}
         foundSavedMovies={foundSavedMovies}
         handleCardDelete={handleCardDelete}
+        firstSearchFound={firstSearchFound}
+        renderLoading={renderLoading}
       />
     </section>
   );

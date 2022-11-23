@@ -2,7 +2,6 @@ import React from 'react';
 import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import Error from "../Error/Error";
 
 function Movies(
   {
@@ -12,9 +11,11 @@ function Movies(
     showMore,
     handleCardSaved,
     handleCardDelete,
+    firstSearch,
+    renderLoading,
+    foundSavedMovies
   }
 ) {
-  console.log(searchMovies.length)
   return (
     <section className="movies">
       <SearchForm handleSubmitSearchMovies={handleSubmitSearchMovies}/>
@@ -24,6 +25,9 @@ function Movies(
         searchMovies={searchMovies}
         handleCardSaved={handleCardSaved}
         handleCardDelete={handleCardDelete}
+        firstSearch={firstSearch}
+        renderLoading={renderLoading}
+        foundSavedMovies={foundSavedMovies}
       />
     </section>
   );

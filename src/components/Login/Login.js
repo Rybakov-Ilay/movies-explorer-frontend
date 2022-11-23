@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./Login.css"
 import Auth from "../Auth/Auth";
 import InputForm from "../InputForm/InputForm";
+import { useFormWithValidation } from "../../utils/useFormValidation";
+import Error from "../Error/Error";
 
 export default function Login({onLogin, loggedIn}) {
-
-  const [values, setValues] = useState({ email: "", password: "" });
+  const { values, handleChange, errors, isValid, setValues, resetForm } = useFormWithValidation()
 
   function handleSubmitLogin(e) {
     e.preventDefault();
@@ -14,11 +15,6 @@ export default function Login({onLogin, loggedIn}) {
       password: values.password,
     });
   }
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setValues({ ...values, [name]: value });
-  };
 
   useEffect(() => {
     setValues({ email: "", password: "" });
@@ -32,6 +28,9 @@ export default function Login({onLogin, loggedIn}) {
       linkText="Регистрация"
       pathLink="/signup"
       handleSubmit={handleSubmitLogin}
+      isValid={isValid}
+      onResetForm={resetForm}
+      loggedIn={loggedIn}
     >
       <InputForm
         labelName="E-mail"
@@ -41,6 +40,7 @@ export default function Login({onLogin, loggedIn}) {
         value={values.email || ""}
         handleChange={handleChange}
       />
+      <Error error={errors.email} isValid={isValid}/>
       <InputForm
         labelName="Пароль"
         name="password"
@@ -49,6 +49,7 @@ export default function Login({onLogin, loggedIn}) {
         value={values.password || ""}
         handleChange={handleChange}
       />
+      <Error error={errors.password} isValid={isValid}/>
     </Auth>
   );
 }
