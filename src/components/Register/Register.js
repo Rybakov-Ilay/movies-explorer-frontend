@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./Register.css"
 import Auth from "../Auth/Auth";
 import InputForm from "../InputForm/InputForm";
 import Error from "../Error/Error";
 import { useFormWithValidation } from "../../utils/useFormValidation";
 
-export default function Register({isSingUp, onSingUp}) {
+export default function Register({ isSingUp, onSingUp }) {
   const { values, handleChange, errors, isValid, setValues, resetForm } = useFormWithValidation()
 
   function handleSubmitRegister(e) {

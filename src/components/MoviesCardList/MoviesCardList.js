@@ -1,7 +1,7 @@
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import ButtonShowMore from "../ButtonShowMore/ButtonShowMore";
-import React, from 'react';
+import React from 'react';
 import usePathName from "../../utils/usePathName";
 import Error from "../Error/Error";
 

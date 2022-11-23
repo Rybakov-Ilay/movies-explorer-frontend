@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./Login.css"
 import Auth from "../Auth/Auth";
 import InputForm from "../InputForm/InputForm";
 import { useFormWithValidation } from "../../utils/useFormValidation";
 import Error from "../Error/Error";
 
-export default function Login({onLogin, loggedIn}) {
+export default function Login({ onLogin, loggedIn }) {
   const { values, handleChange, errors, isValid, setValues, resetForm } = useFormWithValidation()
 
   function handleSubmitLogin(e) {

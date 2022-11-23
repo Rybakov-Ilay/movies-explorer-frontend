@@ -1,9 +1,4 @@
-const mainOptions = {
-  baseUrl: "https://api.movies.ilya.nomoredomains.icu",
-  headers: {
-    "Content-Type": "application/json",
-  },
-};
+import { MAIN_OPTIONS } from "./constant";
 
 class MainApi {
   constructor(options) {
@@ -135,5 +130,5 @@ class MainApi {
   }
 }
 
-const mainApi = new MainApi(mainOptions);
+const mainApi = new MainApi(MAIN_OPTIONS);
 export default mainApi

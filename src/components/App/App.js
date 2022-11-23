@@ -1,41 +1,44 @@
+import React, { useEffect, useState } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
+
+import MoviesApi from "../../utils/MoviesApi";
+import MainApi from "../../utils/MainApi";
+
 import './App.css';
+
 import Main from "../Main/Main";
 import Footer from '../Footer/Footer'
 import Header from "../Header/Header";
-import React, { useEffect, useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
 import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
 import Login from "../Login/Login"
 import Register from "../Register/Register";
 import PageNotFound from "../PageNotFound/PageNotFound";
-import MoviesApi from "../../utils/MoviesApi";
 import Preloader from "../Preloader/Preloader";
+
 import getFilteredMovies from "../../utils/getFilteredMovies";
-import mainApi from "../../utils/MainApi";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
 import useGetWindowWidth from "../../utils/useGetWindowWidth";
-import MainApi from "../../utils/MainApi";
+
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import ProtectedRouteAuthorized from "../ProtectedRouteAuthorized/ProtectedRouteAuthorized";
-import Error from "../Error/Error";
 
 
 function App() {
 
-  const [currentUser, setCurrentUser] = useState({ name: 'sff', email: 'eyw' });
+  const [currentUser, setCurrentUser] = useState({ name: '', email: '' });
   const [renderLoading, setRenderLoading] = useState(false);
   const [isSingUp, setIsSingUp] = useState(false)
   const [loggedIn, setLoggedIn] = useState(false)
   const [searchMovies, setSearchMovies] = useState([])
-  const navigate = useNavigate();
   const [visible, setVisible] = useState(0)
-  const windowWidth = useGetWindowWidth();
   const [foundSavedMovies, setFoundSavedMovies] = useState([]);
   const [firstSearch, setFirstSearch] = useState(false)
   const [firstSearchFound, setFirstSearchFound] = useState(false)
 
+  const windowWidth = useGetWindowWidth();
+  const navigate = useNavigate();
 
   function getAmountOfFilms() {
     if (windowWidth <= 480) {
@@ -47,11 +50,6 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    getAmountOfFilms()
-  }, [])
-
-
   function showMore() {
     let increaseBy;
     windowWidth < 1100 ? increaseBy = 2 : increaseBy = 3
@@ -59,9 +57,13 @@ function App() {
   }
 
   useEffect(() => {
+    getAmountOfFilms()
+  }, [])
+
+  useEffect(() => {
     if (localStorage.getItem("token")) {
       const token = localStorage.getItem("token");
-      mainApi
+      MainApi
         .checkToken(token)
         .then((res) => {
           setCurrentUser(res)
@@ -70,6 +72,12 @@ function App() {
         .catch(err => {
           console.log(err);
         })
+    }
+  }, [])
+
+  useEffect(() => {
+    if (localStorage.movies) {
+      setSearchMovies(JSON.parse(localStorage.movies))
     }
   }, [])
 
@@ -107,22 +115,24 @@ function App() {
       })
   }
 
-  function handleCardSaved(data) {
+  function handleCardSaved(movie) {
     const movieCard = {
-      country: data.movie.country,
-      director: data.movie.director,
-      duration: data.movie.duration,
-      year: data.movie.year,
-      description: data.movie.description,
-      image: data.movie.image.url ? `https://api.nomoreparties.co/${data.movie.image.url}` : data.movie.image,
-      trailerLink: data.movie.trailerLink,
-      thumbnail: `https://api.nomoreparties.co/${data.movie.image.url}`,
-      movieId: data.movie.id || data.movie.movieId,
-      nameRU: data.movie.nameRU,
-      nameEN: data.movie.nameEN,
+      country: movie.country,
+      director: movie.director,
+      duration: movie.duration,
+      year: movie.year,
+      description: movie.description,
+      image: movie.image.url
+        ? `https://api.nomoreparties.co/${movie.image.url}`
+        : movie.image,
+      trailerLink: movie.trailerLink,
+      thumbnail: `https://api.nomoreparties.co/${movie.image.url}`,
+      movieId: movie.id || movie.movieId,
+      nameRU: movie.nameRU,
+      nameEN: movie.nameEN,
     }
     const token = localStorage.getItem('token')
-    mainApi
+    MainApi
       .saveMovie(movieCard, token)
       .then((savedMovie) => {
         setSearchMovies((state) => state.map((c) => {
@@ -141,7 +151,7 @@ function App() {
 
   function handleCardDelete(id) {
     const token = localStorage.getItem('token')
-    mainApi
+    MainApi
       .deleteMovie(id, token)
       .then((deleteMovie) => {
         setSearchMovies(searchMovies.map((c) => {
@@ -160,7 +170,7 @@ function App() {
 
   function handelSubmitSingUp({ name, email, password }) {
     setRenderLoading(true);
-    mainApi
+    MainApi
       .register(name, email, password)
       .then(() => {
         setIsSingUp(true);
@@ -174,13 +184,13 @@ function App() {
 
   function handelSubmitLogin({ email, password }) {
     setRenderLoading(true);
-    mainApi
+    MainApi
       .login(email, password)
       .then((res) => {
         if (res) {
           localStorage.setItem("token", res.token);
           localStorage.setItem('loggedIn', 'true')
-          mainApi.getUser(res.token)
+          MainApi.getUser(res.token)
             .then((dataUser) => {
               setCurrentUser({ email: dataUser.email, name: dataUser.name });
             })
@@ -200,7 +210,7 @@ function App() {
   function handelChangeProfile({ name, email }) {
     setRenderLoading(true);
     const token = localStorage.getItem('token')
-    mainApi
+    MainApi
       .editUser(name, email, token)
       .then((data) => {
         setCurrentUser(data)
@@ -212,7 +222,7 @@ function App() {
   }
 
   function handleSignOut() {
-    setCurrentUser('');
+    setCurrentUser({ name: '', email: '' });
     setSearchMovies([]);
     setFoundSavedMovies([]);
     setLoggedIn(false);

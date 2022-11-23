@@ -20,6 +20,7 @@
 }
 
 .search-form__input {
+  width: 100%;
   min-width: 100px;
   border: none;
   border-radius: 8px;

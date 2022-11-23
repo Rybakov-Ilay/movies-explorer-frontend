@@ -1,9 +1,4 @@
-const moviesOptions = {
-  baseUrl: "https://api.nomoreparties.co/beatfilm-movies",
-  headers: {
-    "Content-Type": "application/json",
-  },
-};
+import { MOVIES_OPTIONS } from "./constant";
 
 class MoviesApi {
   constructor(options) {
@@ -27,6 +22,6 @@ class MoviesApi {
   }
 }
 
-const moviesApi = new MoviesApi(moviesOptions);
+const moviesApi = new MoviesApi(MOVIES_OPTIONS);
 export default moviesApi;
 
