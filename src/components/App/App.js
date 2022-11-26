@@ -82,6 +82,16 @@ function App() {
     }
   }, [])
 
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    MainApi
+      .getSavedMovies(token)
+      .then((res) => {
+        setFoundSavedMovies(res)
+      })
+      .catch((err) => console.log(err))
+  }, [])
+
 
   function handleSubmitSearchMovies(form) {
     setSearchMovies([]);
