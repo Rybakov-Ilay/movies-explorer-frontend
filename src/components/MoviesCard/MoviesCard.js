@@ -8,14 +8,12 @@ function MoviesCard({ movie, onCardSaved, onCardDelete }) {
   const cardButtonSaved = `movei__button movei__button-type_save ${movie.isSaved ? "movei__button-type_saved" : ""}`
   const currentPath = usePathName();
 
-
   function handleSavedClick() {
     onCardSaved(movie);
   }
 
   function handleDeleteClick() {
     onCardDelete(movie._id)
-    console.log(movie)
   }
 
   return (

@@ -138,7 +138,7 @@ function App() {
     MainApi
       .saveMovie(movieCard, token)
       .then((savedMovie) => {
-        setSearchMovies((state) => state.map((c) => {
+        const updateSearchMovies = searchMovies.map((c) => {
           const id = c.id ? c.id : c.movieId
           if (id === movieCard.movieId) {
             savedMovie.isSaved = true;
@@ -146,10 +146,13 @@ function App() {
           } else {
             return c
           }
-        }))
+        })
+        setSearchMovies(updateSearchMovies)
+        localStorage.setItem('movies', JSON.stringify(updateSearchMovies))
         setFoundSavedMovies([savedMovie, ...foundSavedMovies])
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(()=>console.log(searchMovies));
   }
 
   function handleCardDelete(id) {
@@ -157,14 +160,16 @@ function App() {
     MainApi
       .deleteMovie(id, token)
       .then((deleteMovie) => {
-        setSearchMovies(searchMovies.map((c) => {
+        const updateSearchMovies = searchMovies.map((c) => {
           const id = c.id ? c.id : c.movieId
           if (id === deleteMovie.movieId) {
             return deleteMovie;
           } else {
             return c
           }
-        }))
+        })
+        setSearchMovies(updateSearchMovies)
+        localStorage.setItem('movies', JSON.stringify(updateSearchMovies))
         setFoundSavedMovies(foundSavedMovies.filter(c => c.movieId !== deleteMovie.movieId))
       })
       .catch((err) => console.log(err));
@@ -230,12 +235,7 @@ function App() {
     setFoundSavedMovies([]);
     setLoggedIn(false);
     setFirstSearch(false);
-    localStorage.removeItem('token');
-    localStorage.removeItem('loggedIn');
-    localStorage.removeItem('movies');
-    localStorage.removeItem('movieSearch');
-    localStorage.removeItem('filterCheckbox');
-    localStorage.removeItem('foundSavedMovies');
+    localStorage.clear();
   }
 
   return (
