@@ -101,8 +101,20 @@ function App() {
     MoviesApi
       .getMovies()
       .then(data => {
-        setSearchMovies(getFilteredMovies(form, data));
-        const movie = JSON.stringify(getFilteredMovies(form, data))
+        const updateSearchMovies = getFilteredMovies(form, data)
+        if (updateSearchMovies.length > 0) {
+          updateSearchMovies.forEach(savedMovie => {
+            const id = savedMovie.id ? savedMovie.id : savedMovie.movieId
+            foundSavedMovies.forEach(foundMovie => {
+              if (id === foundMovie.movieId) {
+                savedMovie.isSaved = true;
+                savedMovie._id = foundMovie._id
+              }
+            })
+          })
+        }
+        setSearchMovies(updateSearchMovies);
+        const movie = JSON.stringify(updateSearchMovies)
         localStorage.setItem('movies', movie)
         localStorage.setItem('movieSearchQuery', form.movie)
         localStorage.setItem('filterCheckbox', form.filterDuration)
@@ -159,12 +171,13 @@ function App() {
             return c
           }
         })
+
+
         setSearchMovies(updateSearchMovies)
         localStorage.setItem('movies', JSON.stringify(updateSearchMovies))
         setFoundSavedMovies([savedMovie, ...foundSavedMovies])
       })
-      .catch((err) => console.log(err))
-      .finally(() => console.log(searchMovies));
+      .catch((err) => console.log(err));
   }
 
   function handleCardDelete(id) {
@@ -266,7 +279,7 @@ function App() {
             <Route
               path="/movies"
               element={
-                <ProtectedRoute loggedIn={loggedIn} path="/movies">
+                <ProtectedRoute loggedIn={loggedIn}>
                   <Header loggedIn={loggedIn}/>
                   <Preloader renderLoading={renderLoading}/>
                   <Movies
