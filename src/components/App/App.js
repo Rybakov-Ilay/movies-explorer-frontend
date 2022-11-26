@@ -60,6 +60,7 @@ function App() {
     getAmountOfFilms()
   }, [])
 
+
   useEffect(() => {
     if (localStorage.getItem("token")) {
       const token = localStorage.getItem("token");
@@ -70,6 +71,7 @@ function App() {
           setLoggedIn(true);
         })
         .catch(err => {
+          handleSignOut();
           console.log(err);
         })
     }
@@ -90,7 +92,7 @@ function App() {
         setFoundSavedMovies(res)
       })
       .catch((err) => console.log(err))
-  }, [])
+  }, [loggedIn])
 
 
   function handleSubmitSearchMovies(form) {
@@ -264,7 +266,7 @@ function App() {
             <Route
               path="/movies"
               element={
-                <ProtectedRoute loggedIn={loggedIn}>
+                <ProtectedRoute loggedIn={loggedIn} path="/movies">
                   <Header loggedIn={loggedIn}/>
                   <Preloader renderLoading={renderLoading}/>
                   <Movies
