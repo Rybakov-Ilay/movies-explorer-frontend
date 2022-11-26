@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import './Profile.css'
 import { Link } from "react-router-dom";
 import { useFormWithValidation } from "../../utils/useFormValidation";
@@ -13,13 +13,16 @@ import {
 } from "../../utils/constant";
 import SuccessMessage from "../SuccessMessage/SuccessMessage";
 
-
 export default function Profile({ handelChangeProfile, handleSignOut, updateProfile }) {
   const currentUser = useContext(CurrentUserContext);
   const { values, handleChange, errors, isValid, setValues } = useFormWithValidation()
   const isValidEmail = EmailValidator.validate(values.email)
+  const [uniqueField, setUniqueField] = useState(true);
 
-
+  useEffect(() => {
+      setUniqueField(values.name === (currentUser.name || '') && values.email === (currentUser.email || ''));
+    }, [values.name, values.email, currentUser.name, currentUser.email]
+  );
 
   if (errors.email === "" && !isValidEmail) {
     errors.email = ERROR_MESSAGE_EMAIL
@@ -81,7 +84,7 @@ export default function Profile({ handelChangeProfile, handleSignOut, updateProf
         <button
           className="profile__submit"
           type="submit"
-          disabled={!isValid}
+          disabled={uniqueField || !isValid}
         >
           Редактировать
         </button>
