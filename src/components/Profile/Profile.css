@@ -71,17 +71,17 @@
   transition: ease opacity .3s;
 }
 
+.profile__submit:hover {
+  opacity: .6;
+}
+
 .profile__submit:disabled {
   cursor: default;
+  opacity: 0.3;
 }
 
 .profile__submit:disabled:hover {
   cursor: default;
-  opacity: 1;
-}
-
-.profile__submit:hover {
-  opacity: .6;
 }
 
 .profile__sing-out {

@@ -1,12 +1,13 @@
-.error {
+.success-message {
   color: rgba(238, 52, 101, 1);
   font-style: normal;
   font-weight: 400;
   font-size: 10px;
   line-height: 12px;
   margin-top: -11px;
+  display: none;
 }
 
-.error__hidden {
-  display: none;
+.success-message__visible {
+  display: block;
 }

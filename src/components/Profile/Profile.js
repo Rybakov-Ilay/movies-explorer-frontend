@@ -11,12 +11,15 @@ import {
   ERROR_MESSAGE_NAME,
   NAME_PATTERN
 } from "../../utils/constant";
+import SuccessMessage from "../SuccessMessage/SuccessMessage";
 
 
-export default function Profile({ handelChangeProfile, handleSignOut }) {
+export default function Profile({ handelChangeProfile, handleSignOut, updateProfile }) {
   const currentUser = useContext(CurrentUserContext);
   const { values, handleChange, errors, isValid, setValues } = useFormWithValidation()
   const isValidEmail = EmailValidator.validate(values.email)
+
+
 
   if (errors.email === "" && !isValidEmail) {
     errors.email = ERROR_MESSAGE_EMAIL
@@ -41,6 +44,7 @@ export default function Profile({ handelChangeProfile, handleSignOut }) {
   return (
     <section className="profile">
       <h3 className="profile__title">{`Привет, ${currentUser.name}!`}</h3>
+      <SuccessMessage message={"Профиль обновлен"} updateProfile={updateProfile}/>
       <form onSubmit={handleSubmit} className="profile__form" name="profileForm" noValidate>
         <fieldset className="profile__fieldset">
           <label>Имя</label>

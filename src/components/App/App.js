@@ -36,6 +36,7 @@ function App() {
   const [foundSavedMovies, setFoundSavedMovies] = useState([]);
   const [firstSearch, setFirstSearch] = useState(false)
   const [firstSearchFound, setFirstSearchFound] = useState(false)
+  const [updateProfile, setUpdateProfile] = useState(false)
   const windowWidth = useGetWindowWidth();
   const navigate = useNavigate();
 
@@ -80,7 +81,6 @@ function App() {
       setSearchMovies(movie)
     }
   }, [])
-
 
 
   function handleSubmitSearchMovies(form) {
@@ -152,7 +152,7 @@ function App() {
         setFoundSavedMovies([savedMovie, ...foundSavedMovies])
       })
       .catch((err) => console.log(err))
-      .finally(()=>console.log(searchMovies));
+      .finally(() => console.log(searchMovies));
   }
 
   function handleCardDelete(id) {
@@ -216,6 +216,7 @@ function App() {
   }
 
   function handelChangeProfile({ name, email }) {
+    setUpdateProfile(false)
     setRenderLoading(true);
     const token = localStorage.getItem('token')
     MainApi
@@ -226,7 +227,10 @@ function App() {
       .catch((err) => {
         console.log(err);
       })
-      .finally(() => setRenderLoading(false));
+      .finally(() => {
+        setRenderLoading(false);
+        setUpdateProfile(true)
+      });
   }
 
   function handleSignOut() {
@@ -292,11 +296,12 @@ function App() {
               path="/profile"
               element={
                 <ProtectedRoute loggedIn={loggedIn}>
-                  <Header loggedIn={loggedIn}/>,
+                  <Header loggedIn={loggedIn}/>
                   <Profile
                     handleSignOut={handleSignOut}
                     handelChangeProfile={handelChangeProfile}
                     loggedIn={loggedIn}
+                    updateProfile={updateProfile}
                   />
                 </ProtectedRoute>
               }
