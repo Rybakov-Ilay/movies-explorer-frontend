@@ -4,11 +4,27 @@ import { Link } from "react-router-dom";
 import { useFormWithValidation } from "../../utils/useFormValidation";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import Error from "../Error/Error";
+import * as EmailValidator from "email-validator";
+import {
+  DEFAULT_ERROR_MESSAGE_PASSWORD,
+  ERROR_MESSAGE_EMAIL,
+  ERROR_MESSAGE_NAME,
+  NAME_PATTERN
+} from "../../utils/constant";
 
 
 export default function Profile({ handelChangeProfile, handleSignOut }) {
   const currentUser = useContext(CurrentUserContext);
   const { values, handleChange, errors, isValid, setValues } = useFormWithValidation()
+  const isValidEmail = EmailValidator.validate(values.email)
+
+  if (errors.email === "" && !isValidEmail) {
+    errors.email = ERROR_MESSAGE_EMAIL
+  }
+
+  if (errors.name === DEFAULT_ERROR_MESSAGE_PASSWORD) {
+    errors.name = ERROR_MESSAGE_NAME
+  }
 
   useEffect(() => {
     setValues({ name: currentUser.name, email: currentUser.email });
@@ -38,6 +54,7 @@ export default function Profile({ handelChangeProfile, handleSignOut }) {
             maxLength="30"
             value={values.name || ""}
             onChange={handleChange}
+            pattern={NAME_PATTERN}
           />
         </fieldset>
         <Error isValid={isValid} error={errors.name}/>
@@ -56,7 +73,7 @@ export default function Profile({ handelChangeProfile, handleSignOut }) {
             onChange={handleChange}
           />
         </fieldset>
-        <Error isValid={isValid} error={errors.email}/>
+        <Error isValid={isValidEmail} error={errors.email}/>
         <button
           className="profile__submit"
           type="submit"

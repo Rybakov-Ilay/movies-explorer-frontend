@@ -4,9 +4,25 @@ import Auth from "../Auth/Auth";
 import InputForm from "../InputForm/InputForm";
 import { useFormWithValidation } from "../../utils/useFormValidation";
 import Error from "../Error/Error";
+import * as EmailValidator from 'email-validator';
+import {
+  DEFAULT_ERROR_MESSAGE_PASSWORD,
+  ERROR_MESSAGE_EMAIL,
+  ERROR_MESSAGE_PASSWORD,
+  PASSWORD_PATTERN
+} from "../../utils/constant";
 
 export default function Login({ onLogin, loggedIn }) {
   const { values, handleChange, errors, isValid, setValues, resetForm } = useFormWithValidation()
+  const isValidEmail = EmailValidator.validate(values.email)
+
+  if (errors.email === "" && !isValidEmail) {
+    errors.email = ERROR_MESSAGE_EMAIL
+  }
+
+  if (errors.password === DEFAULT_ERROR_MESSAGE_PASSWORD) {
+    errors.password = ERROR_MESSAGE_PASSWORD
+  }
 
   function handleSubmitLogin(e) {
     e.preventDefault();
@@ -40,7 +56,7 @@ export default function Login({ onLogin, loggedIn }) {
         value={values.email || ""}
         handleChange={handleChange}
       />
-      <Error error={errors.email} isValid={isValid}/>
+      <Error error={errors.email} isValid={isValidEmail}/>
       <InputForm
         labelName="Пароль"
         name="password"
@@ -48,6 +64,7 @@ export default function Login({ onLogin, loggedIn }) {
         id="password-input"
         value={values.password || ""}
         handleChange={handleChange}
+        pattern={PASSWORD_PATTERN}
       />
       <Error error={errors.password} isValid={isValid}/>
     </Auth>
