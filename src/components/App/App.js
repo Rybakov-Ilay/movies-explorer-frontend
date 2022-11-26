@@ -36,7 +36,6 @@ function App() {
   const [foundSavedMovies, setFoundSavedMovies] = useState([]);
   const [firstSearch, setFirstSearch] = useState(false)
   const [firstSearchFound, setFirstSearchFound] = useState(false)
-
   const windowWidth = useGetWindowWidth();
   const navigate = useNavigate();
 
@@ -77,20 +76,24 @@ function App() {
 
   useEffect(() => {
     if (localStorage.movies) {
-      setSearchMovies(JSON.parse(localStorage.movies))
+      const movie = JSON.parse(localStorage.movies)
+      setSearchMovies(movie)
     }
   }, [])
 
-  function handleSubmitSearchMovies(searchParameter) {
+
+
+  function handleSubmitSearchMovies(form) {
     setSearchMovies([]);
     setRenderLoading(true);
     MoviesApi
       .getMovies()
       .then(data => {
-        setSearchMovies(getFilteredMovies(searchParameter, data));
-        localStorage.setItem('movies', JSON.stringify(searchMovies))
-        localStorage.setItem('movieSearch', searchParameter.movie)
-        localStorage.setItem('filterCheckbox', searchParameter.filterDuration)
+        setSearchMovies(getFilteredMovies(form, data));
+        const movie = JSON.stringify(getFilteredMovies(form, data))
+        localStorage.setItem('movies', movie)
+        localStorage.setItem('movieSearchQuery', form.movie)
+        localStorage.setItem('filterCheckbox', form.filterDuration)
       })
       .catch(err => console.log(err))
       .finally(() => {
@@ -260,7 +263,6 @@ function App() {
                     firstSearch={firstSearch}
                     renderLoading={renderLoading}
                     foundSavedMovies={foundSavedMovies}
-
                   />
                   <Footer/>
                 </ProtectedRoute>

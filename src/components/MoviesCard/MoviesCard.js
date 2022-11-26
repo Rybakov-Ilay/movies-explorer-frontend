@@ -29,7 +29,9 @@ function MoviesCard({ movie, onCardSaved, onCardDelete }) {
           onClick={currentPath === "/movies"
             ? (movie.isSaved ? handleDeleteClick : handleSavedClick)
             : handleDeleteClick}
-          className={currentPath === "/movies" ? cardButtonSaved : cardButtonDelete}
+          className={currentPath === "/movies"
+            ? cardButtonSaved
+            : cardButtonDelete}
         >
         </button>
       </div>

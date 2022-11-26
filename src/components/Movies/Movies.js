@@ -13,12 +13,17 @@ function Movies(
     handleCardDelete,
     firstSearch,
     renderLoading,
-    foundSavedMovies
+    foundSavedMovies,
+    checkboxSearch,
+    setCheckboxSearch,
   }
 ) {
   return (
     <section className="movies">
-      <SearchForm handleSubmitSearchMovies={handleSubmitSearchMovies}/>
+      <SearchForm
+        handleSubmitSearchMovies={handleSubmitSearchMovies}
+        checkboxSearch={checkboxSearch}
+        setCheckboxSearch={setCheckboxSearch}/>
       <MoviesCardList
         visible={visible}
         showMore={showMore}
