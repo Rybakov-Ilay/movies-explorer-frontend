@@ -30,7 +30,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({ name: '', email: '' });
   const [renderLoading, setRenderLoading] = useState(false);
   const [isSingUp, setIsSingUp] = useState(false)
-  const [loggedIn, setLoggedIn] = useState(false)
+  const [loggedIn, setLoggedIn] = useState(!!localStorage.token)
   const [searchMovies, setSearchMovies] = useState([])
   const [visible, setVisible] = useState(0)
   const [foundSavedMovies, setFoundSavedMovies] = useState([]);
