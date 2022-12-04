@@ -1,7 +1,7 @@
 import React from 'react';
 import './AboutMe.css';
 import '../SectionTitle/SectionTitle.css'
-import foto from '../../images/my-foto.png';
+import foto from '../../images/my-foto.jpg';
 
 function AboutMe() {
 
@@ -13,14 +13,12 @@ function AboutMe() {
         <div className="about-me__text-content">
           <p className="about-me__name">Илья</p>
           <p className="about-me__job">
-            Lorem ipsum dolor sit amet.
+            Frontend и backend-разработчик, 37 лет
           </p>
           <p className="about-me__description">
-            Я родился и живу в Саратове, закончил факультет экономики СГУ. У меня есть жена и дочь. Я люблю слушать
-            музыку,
-            а ещё увлекаюсь бегом. Недавно начал кодить. С 2015 года работал в компании «СКБ Контур». После того, как
-            прошёл
-            курс по веб-разработке, начал заниматься фриланс-заказами и ушёл с постоянной работы.
+            Я работаю и живу в Санкт-Петербурге, закончил факультет электроники СПбГЭТУ "ЛЭТИ". С 2020 года увлекся
+            программированием и закончил два курса Я.Практикума по специальности
+            python-разработчик и frontend-разработчик. Я женат и являюсь счастливым отцом двух прекрасных мальчиков. 
           </p>
           <a href="https://github.com/Rybakov-Ilay" className="about-me__link" target="_blank"
              rel="noreferrer">

@@ -41,9 +41,10 @@ function App() {
   const navigate = useNavigate();
 
   function getAmountOfFilms() {
-    if (windowWidth <= 480) {
+    console.log(windowWidth)
+    if (windowWidth <= 640) {
       setVisible(5)
-    } else if (windowWidth <= 1280) {
+    } else if (windowWidth <= 1100) {
       setVisible(8)
     } else {
       setVisible(12)
