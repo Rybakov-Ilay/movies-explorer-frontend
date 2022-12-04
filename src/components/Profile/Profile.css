@@ -75,6 +75,15 @@
   opacity: .6;
 }
 
+.profile__submit:disabled {
+  cursor: default;
+  opacity: 0.3;
+}
+
+.profile__submit:disabled:hover {
+  cursor: default;
+}
+
 .profile__sing-out {
   margin: 0 10px 40px;
   color: rgba(238, 52, 101, 1);

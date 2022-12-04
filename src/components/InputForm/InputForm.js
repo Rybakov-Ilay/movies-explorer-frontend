@@ -13,6 +13,9 @@ export default function InputForm(props) {
         required
         minLength="2"
         maxLength="32"
+        onChange={props.handleChange}
+        value={props.value}
+        pattern={props.pattern}
       />
     </div>
   );
